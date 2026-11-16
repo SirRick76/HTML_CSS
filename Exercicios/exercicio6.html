@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidatura</title>
+</head>
+<body>
+   <form action="/candidatura" method="post">
+<fieldset>
+<legend>Dados pessoais</legend>
+<label for="nome">Nome completo</label>
+<input id="nome" name="nome" type="text" required autocomplete="name">
+<br>
+<label for="email">Email</label>
+<input id="email" name="email" type="email" >
+<br>
+<label for="tele">Telemovel</label>
+<input id="tele" name="telemovel "type="number">
+<br>
+<label for="nasc">Data de nascimento</label>
+<input id="nasc" name="nascimento" type="date" max="2008-12-31">
+<br>
+<label for="codpostal">Código Postal</label>
+<input id="codpostal" name="postal" type="text" pattern="[0-9]{4}-[0-9]{3}" inputmode="numeric">
+<br>
+</fieldset>
+<fieldset>
+<legend>Formação Pretendida</legend>
+<label for="nomef">Nome formação</label>
+<input id="nomef" name="nomef" type="text" required autocomplete="namef">
+<br>
+<td>Regime:</td>
+<br>
+            <td>
+                <label for="lab">Laboral</label> <input type="radio" name="regime" value="Laboral" id="lab">
+                <label for="poslab">Pós-laboral</label> <input type="radio" name="regime" value="Pós-laboral" id="poslab">
+            </td>
+
+</fieldset>
+<label>Upload CV:<input type="file" name="cv" required accept=".pdf"> </label>
+<br>
+<label><input type="checkbox" name="rgpd" required> Li e aceito a política de privacidade</label>
+<button type="submit">Inscrever-me</button>
+</form>
+</body>
+</html>
+<!--  
+2 <fieldset>: «Dados pessoais» e «Formação pretendida»
+
+3 Radio para regime (laboral / pós-laboral) e checkboxes para áreas de interesse
+4 <select> com cursos agrupados por <optgroup> e <textarea> para motivação
+6 Todas as labels ligadas aos campos; testar só com o teclado (Tab)
+-->

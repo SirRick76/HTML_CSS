@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulários em HTML</title>
+</head>
+<body>
+    <h1>Formulários em HTML</h1>
+    <br>
+    <table border="1">
+        <tr>
+            <td>Texto</td>
+            <td><input type="text" maxlength="5"></td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td><input type="password" value="texto"></td>
+        </tr>
+        <tr>
+            <td>Enviar</td>
+            <td><input type="submit" value="Enviar Formulario"></td>
+        </tr>
+        <tr>
+            <td>Limpar</td>
+            <td><input type="reset" value="Limpar"></td>
+        </tr>
+        <tr>
+            <td>Botões opção(radio buttons)</td>
+            <td>Verdadeiro <input type="radio" name="opcao" value="verdadeiro"> Falso <input type="radio" name="opcao" value="falso"></td>
+        </tr>
+        <tr>
+            <td>Data</td>
+            <td><input type="date"></td>
+        </tr>
+        <tr>
+            <td>Tempo</td>
+            <td><input type="time"></td>
+        </tr>
+        <tr>
+            <td>Semana</td>
+            <td><input type="week"></td>
+        </tr>
+        <tr>
+            <td>Imagem</td>
+            <td><input type="image" src="imagens\chat.png"></td>
+        </tr>
+        <tr>
+            <td>Tamanho</td>
+            <td><input type="range"></td>
+        </tr>
+        <tr>
+            <td>Procurar</td>
+            <td><input type="search"></td>
+        </tr>
+        <tr>
+            <td>Ficheiro</td>
+            <td><input type="file"></td>
+        </tr>
+        <tr>
+            <td>Números</td>
+            <td><input type="number" value="0" min="0" max="5"></td>
+        </tr>
+        <tr>
+            <td>Cor</td>
+            <td><input type="color"></td>
+        </tr>
+        <tr>
+            <td>Hidden</td>
+            <td><input type="hidden"></td>
+        </tr>
+        <tr>
+            <td>Documento</td>
+            <td>
+                <label for="cc">Cartão cidadão</label> <input type="radio" name="documento" value="Cartão Cidadão" id="cc">
+                <label for="pass">Passaporte</label> <input type="radio" name="documento" value="Passaporte" id="pass">
+            </td>
+        </tr>
+        <tr>
+            <td>Check Button</td>
+            <td>
+                <label for="cv">Curriculo</label>
+                <input type="checkbox" name="docs" value="Currículo" id="cv">
+                <label for="ch">Certificado Habilitações</label>
+                <input type="checkbox" name="docs" value="Certificado Habilitações" id="ch">
+                <label for="foto">Fotografia</label>
+                <input type="checkbox" name="docs" value="Fotografia" id="foto">
+            </td>
+        </tr>
+        <tr>
+            <td>Email</td>
+            <td><input type="email"></td>
+        </tr>
+        <tr>
+            <td>Combo box</td>
+            <td>
+            <label for="hl">Habilitações Literárias<label>
+            <select name="Habilitacoes" id="hl">
+                <option>
+                    --Selecione uma opção --
+                </option>
+                <option value="Douturamento">Douturamento</option>
+                <option value="Licenciatura">Licenciatura</option>
+                <option value="Mestrado">Mestrado</option>
+
+
+            </select>
+        
+            </td>
+        </tr>
+    </table>
+    
+</body>
+</html>
