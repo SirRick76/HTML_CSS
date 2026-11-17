@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Box Model</title>
+    <style>
+
+        body{
+            background-color: bisque;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
+        h1{
+            background-color: mediumaquamarine;
+            padding: 20px;
+            text-align: center;
+        }
+        h2{
+            background-color: cadetblue;
+            margin: 20px;
+            border:dashed navy 3px;
+            
+        }
+        h3{
+            background-color: chocolate;
+            padding: 10px;
+            border-top: solid slateblue 5px;
+            border-bottom: dotted green 5px;
+        }
+        h2,h3{
+
+            color:white
+        }
+        p{
+            background-color: burlywood;
+        }
+        .destaque{
+            background-color: pink;
+            height: 350px;
+            width: 320px;
+            border: solid azure 20px;
+            margin: 0px;
+            text-align: justify;
+        }
+        .tamanho{
+            width: 60%;
+            height: 250px;
+            text-align: center;
+        }
+        .padding{
+            padding: 20px;
+        }
+        .margin{
+            margin:10px 20px 30px 40px;
+        }
+        .border{
+            border-bottom: solid blue 5px;
+            border-top: dotted green 5px;
+            border-left: dashed salmon 5px;
+            border-right: solid blueviolet 5px;
+        }
+        .outline{
+            outline: dotted gray 7.5px;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <h1>Box model em CSS</h1>
+    <H2>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Alias architecto sapiente deleniti repudiandae, porro
+        autem hic neque nobis tempora sint.</H2>
+    <P>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis fugiat minima recusandae ipsam consectetur
+        perspiciatis? Libero totam placeat nihil accusantium mollitia temporibus. Voluptates omnis, quas hic distinctio
+        sunt autem exercitationem architecto totam quia adipisci libero beatae, repellat dicta iure perferendis maiores
+        nostrum dolor dolores! At necessitatibus ea sed sunt vitae error voluptates minima consequuntur dolorem
+        obcaecati nisi cum inventore animi itaque officiis, rerum dolor assumenda iure laudantium sapiente optio ab
+        amet. Ducimus saepe distinctio dicta, et culpa fuga unde velit totam eos exercitationem deleniti pariatur quae
+        expedita tempore sed similique sit aperiam vitae. Quasi natus quia, maxime veniam magni provident.</P>
+    <p class="destaque">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Atque beatae suscipit omnis quos, ratione architecto
+        nostrum doloremque at culpa natus, totam nam eos animi quasi quaerat, officia iure nulla quibusdam sit incidunt
+        rem ducimus. Illum assumenda, accusantium a velit alias, maiores modi at natus, asperiores officia ad. Similique
+        dolores velit facilis eum fuga corrupti repudiandae reprehenderit fugiat possimus nulla beatae at consectetur a
+        dicta eius voluptates nobis illum, quasi excepturi qui, aperiam iusto labore aliquid? Aperiam veritatis natus
+        velit cum vel rerum, eos ullam nam saepe! Voluptate obcaecati modi, atque vel, reprehenderit minima, fuga
+        explicabo excepturi ab sapiente quia ex.</p>
+    <p class="tamanho">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum maiores velit nobis numquam dignissimos tempora,
+        magni eius alias distinctio quam vero facere totam illo iure placeat, necessitatibus nulla non, incidunt
+        veritatis. Ducimus architecto omnis magni. Impedit culpa aliquam officiis, id minima sapiente nemo nesciunt
+        praesentium quo possimus corrupti velit ipsum at, perferendis excepturi repudiandae? Dolore, at numquam dolorum
+        aut animi temporibus sit cupiditate veritatis, debitis adipisci esse fuga consequatur distinctio dignissimos
+        sapiente ullam voluptatibus. Magnam officia quam omnis, nobis soluta expedita alias voluptates iure! Tempore sit
+        porro cum facilis similique velit nulla quaerat, ut, assumenda veniam et quo illum excepturi.</p>
+    <h2>Padding</h2>
+    <h3>Com padding</h3>
+    <p class="padding">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum magni maiores ipsum, sunt modi ducimus ea eius!
+        Eveniet, quo? Et doloremque dolores nihil. Accusamus tempora sapiente quia odio assumenda libero?</p>
+    <h3>Sem padding</h3>
+    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum magni maiores ipsum, sunt modi ducimus ea eius!
+        Eveniet, quo? Et doloremque dolores nihil. Accusamus tempora sapiente quia odio assumenda libero?</p>
+
+    <h2>Margin</h2>
+    <h3>Com margin</h3>
+    <p class="margin">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum magni maiores ipsum, sunt modi ducimus ea eius!
+        Eveniet, quo? Et doloremque dolores nihil. Accusamus tempora sapiente quia odio assumenda libero?</p>
+    <h3>Sem margin</h3>
+    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum magni maiores ipsum, sunt modi ducimus ea eius!
+        Eveniet, quo? Et doloremque dolores nihil. Accusamus tempora sapiente quia odio assumenda libero?</p>
+    <h2>Com padding e margin</h2>
+    <p class="padding margin">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam nulla modi cupiditate quidem, eligendi nisi ducimus quam, omnis quae reprehenderit aspernatur deleniti nihil quo placeat quaerat illo blanditiis, iure exercitationem.</p>
+    <h2>Com outline</h2>
+    <p class="outline">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam nulla modi cupiditate quidem, eligendi nisi ducimus quam, omnis quae reprehenderit aspernatur deleniti nihil quo placeat quaerat illo blanditiis, iure exercitationem.</p>
+    <h2>Com border e outline</h2>
+    <p class="border outline">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quisquam nulla modi cupiditate quidem, eligendi nisi ducimus quam, omnis quae reprehenderit aspernatur deleniti nihil quo placeat quaerat illo blanditiis, iure exercitationem.</p>
+</body>
+
+</html>
