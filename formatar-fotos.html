@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formatar fotografias com CSS</title>
+
+  <!--
+    FOTOGRAFIAS
+    As fotos vêm do serviço gratuito Lorem Picsum (picsum.photos) e precisam de internet.
+    Para usar as suas fotos, crie uma pasta "imagens" ao lado deste ficheiro e troque, por exemplo:
+      src="https://picsum.photos/id/1015/600/400"   →   src="imagens/paisagem.jpg"
+  -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Inter:wght@400;600;800&display=swap">
+
+  <style>
+    /* =====================================================
+       0. ESTILOS DA PÁGINA (não fazem parte dos exemplos)
+       ===================================================== */
+    :root {
+      --fundo: #f4f1ec;
+      --texto: #26221e;
+      --destaque: #c2410c;
+      --codigo: #1e1b2e;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: "Inter", Arial, sans-serif;
+      line-height: 1.6;
+      color: var(--texto);
+      background: var(--fundo);
+    }
+
+    header.topo {
+      padding: 4rem 1.5rem 3rem;
+      text-align: center;
+      color: white;
+      background: linear-gradient(rgb(0 0 0 / .55), rgb(0 0 0 / .55)),
+                  url("https://picsum.photos/id/1043/1600/600") center / cover;
+    }
+    header.topo h1 { font-size: clamp(2rem, 5vw, 3.5rem); margin: 0; font-weight: 800; }
+    header.topo p { margin: .5rem 0 0; font-size: 1.1rem; opacity: .9; }
+
+    nav.indice {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      flex-wrap: wrap;
+      gap: .4rem;
+      justify-content: center;
+      padding: .75rem;
+      background: rgb(255 255 255 / .9);
+      backdrop-filter: blur(6px);
+      box-shadow: 0 2px 10px rgb(0 0 0 / .08);
+    }
+    nav.indice a {
+      padding: .25rem .7rem;
+      font-size: .85rem;
+      color: var(--texto);
+      text-decoration: none;
+      border-radius: 999px;
+      background: #ebe5dc;
+    }
+    nav.indice a:hover { background: var(--destaque); color: white; }
+
+    main { max-width: 1150px; margin: 0 auto; padding: 1rem 1.5rem 4rem; }
+
+    section.exemplo {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+      margin: 3rem 0;
+      padding: 2rem;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgb(0 0 0 / .05);
+      scroll-margin-top: 5rem;
+    }
+    section.exemplo.largo { grid-template-columns: 1fr; }
+
+    section.exemplo h2 {
+      grid-column: 1 / -1;
+      margin: 0;
+      font-size: 1.5rem;
+    }
+    section.exemplo h2 span {
+      display: inline-grid;
+      place-items: center;
+      width: 2.2rem;
+      height: 2.2rem;
+      margin-right: .5rem;
+      font-size: 1rem;
+      color: white;
+      background: var(--destaque);
+      border-radius: 50%;
+    }
+    .descricao { grid-column: 1 / -1; margin: -1rem 0 0; color: #6b6259; }
+
+    .palco {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      align-items: center;
+      min-height: 280px;
+      padding: 1.5rem;
+      background: #faf8f5;
+      border-radius: 12px;
+    }
+    .palco.escuro { background: #1b1b1f; }
+
+    pre {
+      margin: 0;
+      padding: 1.25rem;
+      overflow-x: auto;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: .85rem;
+      line-height: 1.5;
+      color: #e6e1f5;
+      background: var(--codigo);
+      border-radius: 12px;
+    }
+    pre .c { color: #8b85a8; }   /* comentários no código */
+    pre .s { color: #f9c784; }   /* seletores */
+
+    footer { padding: 2rem; text-align: center; color: #8a8178; }
+
+    @media (max-width: 800px) {
+      section.exemplo { grid-template-columns: 1fr; padding: 1.25rem; }
+    }
+
+    /* Todas as fotos dos exemplos: comportamento base */
+    .palco img { display: block; max-width: 100%; height: auto; }
+
+
+    /* =====================================================
+       1. MOLDURA SIMPLES
+       ===================================================== */
+    .moldura-simples {
+      border: 8px solid #26221e;
+    }
+
+    /* =====================================================
+       2. CANTOS ARREDONDADOS E CÍRCULO
+       ===================================================== */
+    .arredondada { border-radius: 20px; }
+
+    .circulo {
+      width: 200px;
+      height: 200px;
+      object-fit: cover;          /* corta sem deformar */
+      border-radius: 50%;
+      border: 6px solid white;
+      box-shadow: 0 0 0 4px var(--destaque);   /* segundo anel */
+    }
+
+    /* =====================================================
+       3. POLAROID
+       ===================================================== */
+    .polaroid {
+      margin: 0;
+      padding: 12px 12px 0;
+      background: white;
+      box-shadow: 0 10px 25px rgb(0 0 0 / .2);
+      transform: rotate(-4deg);
+      transition: transform .3s ease;
+    }
+    .polaroid:nth-child(2) { transform: rotate(3deg); }
+    .polaroid:hover { transform: rotate(0) scale(1.05); z-index: 2; }
+    .polaroid figcaption {
+      padding: .6rem 0 .8rem;
+      font-family: "Caveat", cursive;
+      font-size: 1.6rem;
+      text-align: center;
+    }
+
+    /* =====================================================
+       4. MOLDURA DE QUADRO (madeira + passe-partout)
+       ===================================================== */
+    .quadro {
+      padding: 30px;                         /* passe-partout */
+      background: #f7f3ea;
+      border: 22px solid #5b3a1e;            /* madeira */
+      border-color: #6e4524 #4a2e15 #3c2511 #5b3a1e;   /* luz e sombra */
+      box-shadow:
+        inset 0 0 8px rgb(0 0 0 / .35),      /* sombra dentro do passe-partout */
+        0 15px 30px rgb(0 0 0 / .35);        /* sombra na parede */
+    }
+
+    /* =====================================================
+       5. MOLDURA DOURADA (gradiente na borda)
+       ===================================================== */
+    .dourada {
+      padding: 10px;
+      background: #1b1b1f;
+      border: 18px solid;
+      border-image: linear-gradient(135deg, #8a6d1d, #f6e27a, #b8902c, #fff3b0, #8a6d1d) 1;
+      box-shadow: 0 15px 35px rgb(0 0 0 / .5);
+    }
+
+    /* =====================================================
+       6. MOLDURA DUPLA E TRACEJADA
+       ===================================================== */
+    .dupla {
+      padding: 6px;
+      border: 6px double #1e3a8a;
+    }
+    .tracejada {
+      padding: 8px;
+      border: 4px dashed var(--destaque);
+      border-radius: 14px;
+    }
+    .outline {
+      outline: 3px solid #0f766e;
+      outline-offset: 10px;                  /* moldura afastada da foto */
+    }
+
+    /* =====================================================
+       7. SOMBRAS
+       ===================================================== */
+    .sombra-suave { border-radius: 12px; box-shadow: 0 10px 30px rgb(0 0 0 / .2); }
+    .sombra-dura  { box-shadow: 14px 14px 0 #26221e; }
+    .neon {
+      border-radius: 12px;
+      box-shadow: 0 0 10px #22d3ee, 0 0 30px #22d3ee, 0 0 60px #a855f7;
+    }
+
+    /* =====================================================
+       8. FITA-COLA (pseudo-elemento ::before)
+       ===================================================== */
+    .fita {
+      position: relative;
+      padding: 10px;
+      background: white;
+      box-shadow: 0 6px 18px rgb(0 0 0 / .15);
+      transform: rotate(2deg);
+    }
+    .fita::before {
+      content: "";
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      width: 110px;
+      height: 32px;
+      background: rgb(255 235 150 / .75);
+      transform: translateX(-50%) rotate(-4deg);
+      box-shadow: 0 1px 3px rgb(0 0 0 / .15);
+    }
+
+    /* =====================================================
+       9. FILTROS
+       ===================================================== */
+    .filtros figure { margin: 0; text-align: center; font-size: .85rem; }
+    .filtros img { width: 160px; height: 120px; object-fit: cover; border-radius: 8px; }
+    .f-cinza     { filter: grayscale(100%); }
+    .f-sepia     { filter: sepia(90%); }
+    .f-desfoque  { filter: blur(3px); }
+    .f-contraste { filter: contrast(160%) saturate(140%); }
+    .f-brilho    { filter: brightness(140%); }
+    .f-matiz     { filter: hue-rotate(180deg); }
+    .f-inverter  { filter: invert(100%); }
+    .f-vintage   { filter: sepia(50%) contrast(110%) brightness(95%) saturate(80%); }
+
+    /* =====================================================
+       10. EFEITOS AO PASSAR O RATO
+       ===================================================== */
+    .zoom {
+      overflow: hidden;                       /* esconde o que sai da caixa */
+      border-radius: 12px;
+    }
+    .zoom img { transition: transform .5s ease; }
+    .zoom:hover img { transform: scale(1.15); }
+
+    .cor-ao-passar {
+      border-radius: 12px;
+      filter: grayscale(100%);
+      transition: filter .4s ease;
+    }
+    .cor-ao-passar:hover { filter: grayscale(0); }
+
+    .levantar {
+      border-radius: 12px;
+      transition: transform .3s ease, box-shadow .3s ease;
+    }
+    .levantar:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 30px rgb(0 0 0 / .25);
+    }
+
+    .rodar:hover { transform: rotate(-5deg) scale(1.05); }
+    .rodar { transition: transform .3s ease; border-radius: 12px; }
+
+    /* =====================================================
+       11. LEGENDA SOBREPOSTA
+       ===================================================== */
+    .sobreposta {
+      position: relative;                     /* referência para o absolute */
+      margin: 0;
+      overflow: hidden;
+      border-radius: 14px;
+    }
+    .sobreposta figcaption {
+      position: absolute;
+      inset: auto 0 0 0;                      /* colada em baixo */
+      padding: 2rem 1rem 1rem;
+      color: white;
+      background: linear-gradient(transparent, rgb(0 0 0 / .8));
+      transform: translateY(100%);            /* escondida */
+      transition: transform .35s ease;
+    }
+    .sobreposta:hover figcaption { transform: translateY(0); }
+    .sobreposta figcaption strong { display: block; font-size: 1.2rem; }
+
+    /* Versão com texto centrado e véu colorido */
+    .veu { position: relative; margin: 0; border-radius: 14px; overflow: hidden; }
+    .veu::after {
+      content: "Ver galeria";
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: white;
+      background: rgb(194 65 12 / .75);
+      opacity: 0;
+      transition: opacity .3s ease;
+    }
+    .veu:hover::after { opacity: 1; }
+
+    /* =====================================================
+       12. FORMAS COM clip-path
+       ===================================================== */
+    .formas img { width: 200px; height: 200px; object-fit: cover; }
+    .hexagono { clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%); }
+    .losango  { clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
+    .estrela  { clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); }
+    .diagonal { clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%); }
+    .elipse   { clip-path: ellipse(45% 35% at 50% 50%); }
+    .gota     { border-radius: 50% 0 50% 50%; }
+
+    /* =====================================================
+       13. object-fit: encaixar a foto numa caixa
+       ===================================================== */
+    .encaixe figure { margin: 0; text-align: center; font-size: .85rem; }
+    .encaixe img {
+      width: 200px;
+      height: 200px;
+      background: #e6dfd4;
+      border: 2px solid #c9bfb1;
+    }
+    .of-fill    { object-fit: fill; }         /* deforma */
+    .of-cover   { object-fit: cover; }        /* preenche e corta */
+    .of-contain { object-fit: contain; }      /* cabe inteira */
+    .of-posicao { object-fit: cover; object-position: right; }
+
+    /* =====================================================
+       14. VINHETA E GRADIENTES POR CIMA
+       ===================================================== */
+    .vinheta { position: relative; border-radius: 12px; overflow: hidden; }
+    .vinheta::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      box-shadow: inset 0 0 80px 20px rgb(0 0 0 / .8);   /* escurece os cantos */
+    }
+
+    .duotone {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #1e3a8a;
+    }
+    .duotone img {
+      filter: grayscale(100%) contrast(120%);
+      mix-blend-mode: screen;                 /* mistura com a cor de fundo */
+    }
+    .duotone::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: #f97316;
+      mix-blend-mode: multiply;
+    }
+
+    /* =====================================================
+       15. FOTOS EMPILHADAS
+       ===================================================== */
+    .pilha { position: relative; width: 320px; height: 260px; }
+    .pilha img {
+      position: absolute;
+      inset: 0;
+      width: 300px;
+      height: 220px;
+      object-fit: cover;
+      margin: auto;
+      border: 10px solid white;
+      box-shadow: 0 6px 15px rgb(0 0 0 / .25);
+      transition: transform .4s ease;
+    }
+    .pilha img:nth-child(1) { transform: rotate(-8deg); }
+    .pilha img:nth-child(2) { transform: rotate(5deg); }
+    .pilha img:nth-child(3) { transform: rotate(-1deg); }
+    .pilha:hover img:nth-child(1) { transform: rotate(-15deg) translateX(-90px); }
+    .pilha:hover img:nth-child(2) { transform: rotate(12deg) translateX(90px); }
+
+    /* =====================================================
+       16. TIRA DE FILME
+       ===================================================== */
+    .filme {
+      display: flex;
+      gap: 12px;
+      padding: 28px 14px;
+      background-color: #111;
+      /* furos desenhados com gradientes repetidos */
+      background-image:
+        repeating-linear-gradient(90deg, #f4f1ec 0 14px, transparent 14px 30px),
+        repeating-linear-gradient(90deg, #f4f1ec 0 14px, transparent 14px 30px);
+      background-size: 100% 10px, 100% 10px;
+      background-position: 0 9px, 0 calc(100% - 9px);
+      background-repeat: no-repeat;
+      border-radius: 6px;
+      overflow-x: auto;
+    }
+    .filme img { width: 170px; height: 120px; object-fit: cover; filter: sepia(30%); }
+
+    /* =====================================================
+       17. GALERIA EM GRELHA (CSS Grid)
+       ===================================================== */
+    .galeria {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      grid-auto-rows: 160px;
+      gap: 10px;
+      width: 100%;
+    }
+    .galeria img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+      transition: transform .3s ease, filter .3s ease;
+    }
+    .galeria img:hover { transform: scale(1.03); filter: brightness(110%); }
+    .galeria .grande { grid-column: span 2; grid-row: span 2; }
+    .galeria .alta   { grid-row: span 2; }
+    .galeria .larga  { grid-column: span 2; }
+
+    /* =====================================================
+       18. TEXTO A CONTORNAR A FOTO (float + shape-outside)
+       ===================================================== */
+    .contornar { text-align: justify; background: white; padding: 1rem; border-radius: 12px; }
+    .contornar img {
+      float: left;
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      margin: 0 1.5rem 1rem 0;
+      border-radius: 50%;
+      shape-outside: circle(50%);             /* o texto segue o círculo */
+    }
+
+    /* =====================================================
+       19. PROPORÇÃO FIXA (aspect-ratio)
+       ===================================================== */
+    .proporcoes figure { margin: 0; width: 200px; text-align: center; font-size: .85rem; }
+    .proporcoes img { width: 100%; object-fit: cover; border-radius: 10px; }
+    .r-quadrado { aspect-ratio: 1 / 1; }
+    .r-video    { aspect-ratio: 16 / 9; }
+    .r-retrato  { aspect-ratio: 3 / 4; }
+
+    /* Respeitar quem prefere menos movimento */
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topo">
+    <h1>Formatar fotografias com CSS</h1>
+    <p>Molduras, formas, filtros, sombras e efeitos: um exemplo por secção, com o código ao lado</p>
+  </header>
+
+  <nav class="indice" aria-label="Índice">
+    <a href="#ex1">Moldura</a>
+    <a href="#ex2">Arredondada</a>
+    <a href="#ex3">Polaroid</a>
+    <a href="#ex4">Quadro</a>
+    <a href="#ex5">Dourada</a>
+    <a href="#ex6">Bordas</a>
+    <a href="#ex7">Sombras</a>
+    <a href="#ex8">Fita-cola</a>
+    <a href="#ex9">Filtros</a>
+    <a href="#ex10">Hover</a>
+    <a href="#ex11">Legenda</a>
+    <a href="#ex12">Formas</a>
+    <a href="#ex13">object-fit</a>
+    <a href="#ex14">Vinheta</a>
+    <a href="#ex15">Pilha</a>
+    <a href="#ex16">Filme</a>
+    <a href="#ex17">Galeria</a>
+    <a href="#ex18">Contornar</a>
+    <a href="#ex19">Proporção</a>
+  </nav>
+
+  <main>
+
+    <!-- 1 -->
+    <section class="exemplo" id="ex1">
+      <h2><span>1</span>Moldura simples</h2>
+      <p class="descricao">A propriedade <code>border</code> desenha uma moldura à volta da imagem.</p>
+      <div class="palco">
+        <img class="moldura-simples" src="https://picsum.photos/id/1015/420/280" alt="Rio entre montanhas" width="420" height="280">
+      </div>
+<pre><span class="s">.moldura-simples</span> {
+  border: 8px solid #26221e;
+}
+
+<span class="c">&lt;!-- HTML --&gt;</span>
+&lt;img class="moldura-simples"
+     src="foto.jpg" alt="…"&gt;</pre>
+    </section>
+
+    <!-- 2 -->
+    <section class="exemplo" id="ex2">
+      <h2><span>2</span>Cantos arredondados e círculo</h2>
+      <p class="descricao"><code>border-radius</code> arredonda os cantos; com 50% numa imagem quadrada obtém-se um círculo. <code>object-fit: cover</code> evita que a foto fique deformada.</p>
+      <div class="palco">
+        <img class="arredondada" src="https://picsum.photos/id/1018/300/220" alt="Montanhas ao amanhecer" width="300" height="220">
+        <img class="circulo" src="https://picsum.photos/id/64/400/400" alt="Retrato de uma mulher" width="200" height="200">
+      </div>
+<pre><span class="s">.arredondada</span> { border-radius: 20px; }
+
+<span class="s">.circulo</span> {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;   <span class="c">/* corta sem deformar */</span>
+  border-radius: 50%;
+  border: 6px solid white;
+  <span class="c">/* segundo anel: sombra sem desfoque */</span>
+  box-shadow: 0 0 0 4px #c2410c;
+}</pre>
+    </section>
+
+    <!-- 3 -->
+    <section class="exemplo" id="ex3">
+      <h2><span>3</span>Polaroid</h2>
+      <p class="descricao"><code>&lt;figure&gt;</code> + <code>&lt;figcaption&gt;</code>, margem inferior maior, uma fonte manuscrita e uma pequena rotação. Passe o rato!</p>
+      <div class="palco">
+        <figure class="polaroid">
+          <img src="https://picsum.photos/id/1025/240/240" alt="Cão com manta" width="240" height="240">
+          <figcaption>O Bolinhas</figcaption>
+        </figure>
+        <figure class="polaroid">
+          <img src="https://picsum.photos/id/1039/240/240" alt="Cascata na floresta" width="240" height="240">
+          <figcaption>Férias 2026</figcaption>
+        </figure>
+      </div>
+<pre><span class="s">.polaroid</span> {
+  padding: 12px 12px 0;
+  background: white;
+  box-shadow: 0 10px 25px rgb(0 0 0 / .2);
+  transform: rotate(-4deg);
+  transition: transform .3s ease;
+}
+<span class="s">.polaroid:hover</span> {
+  transform: rotate(0) scale(1.05);
+}
+<span class="s">.polaroid figcaption</span> {
+  font-family: "Caveat", cursive;
+  font-size: 1.6rem;
+  text-align: center;
+}</pre>
+    </section>
+
+    <!-- 4 -->
+    <section class="exemplo" id="ex4">
+      <h2><span>4</span>Moldura de quadro com passe-partout</h2>
+      <p class="descricao">O <code>padding</code> faz o passe-partout, a <code>border</code> com 4 cores diferentes simula luz e sombra na madeira e duas sombras dão profundidade.</p>
+      <div class="palco" style="background:#d9d2c5">
+        <img class="quadro" src="https://picsum.photos/id/1016/360/240" alt="Desfiladeiro rochoso" width="360" height="240">
+      </div>
+<pre><span class="s">.quadro</span> {
+  padding: 30px;                 <span class="c">/* passe-partout */</span>
+  background: #f7f3ea;
+  border: 22px solid;
+  <span class="c">/* topo, direita, baixo, esquerda */</span>
+  border-color: #6e4524 #4a2e15
+                #3c2511 #5b3a1e;
+  box-shadow:
+    inset 0 0 8px rgb(0 0 0 / .35),
+    0 15px 30px rgb(0 0 0 / .35);
+}</pre>
+    </section>
+
+    <!-- 5 -->
+    <section class="exemplo" id="ex5">
+      <h2><span>5</span>Moldura dourada</h2>
+      <p class="descricao"><code>border-image</code> permite usar um gradiente como borda — ideal para efeitos metálicos.</p>
+      <div class="palco escuro">
+        <img class="dourada" src="https://picsum.photos/id/1080/300/360" alt="Morangos" width="300" height="360">
+      </div>
+<pre><span class="s">.dourada</span> {
+  padding: 10px;
+  background: #1b1b1f;
+  border: 18px solid;
+  border-image: linear-gradient(135deg,
+      #8a6d1d, #f6e27a, #b8902c,
+      #fff3b0, #8a6d1d) 1;
+  box-shadow: 0 15px 35px rgb(0 0 0 / .5);
+}</pre>
+    </section>
+
+    <!-- 6 -->
+    <section class="exemplo" id="ex6">
+      <h2><span>6</span>Bordas dupla, tracejada e outline</h2>
+      <p class="descricao">Estilos de borda: <code>double</code>, <code>dashed</code>, <code>dotted</code>… O <code>outline</code> com <code>outline-offset</code> cria uma moldura afastada.</p>
+      <div class="palco">
+        <img class="dupla" src="https://picsum.photos/id/1050/200/200" alt="Paisagem costeira" width="200" height="200">
+        <img class="tracejada" src="https://picsum.photos/id/1062/200/200" alt="Cão embrulhado numa manta" width="200" height="200">
+        <img class="outline" src="https://picsum.photos/id/1074/200/200" alt="Leoa deitada" width="200" height="200">
+      </div>
+<pre><span class="s">.dupla</span> {
+  padding: 6px;
+  border: 6px double #1e3a8a;
+}
+<span class="s">.tracejada</span> {
+  padding: 8px;
+  border: 4px dashed #c2410c;
+  border-radius: 14px;
+}
+<span class="s">.outline</span> {
+  outline: 3px solid #0f766e;
+  outline-offset: 10px;
+}</pre>
+    </section>
+
+    <!-- 7 -->
+    <section class="exemplo" id="ex7">
+      <h2><span>7</span>Sombras</h2>
+      <p class="descricao"><code>box-shadow: x y desfoque cor</code>. Sem desfoque fica uma sombra «dura»; várias sombras coloridas criam um brilho neon.</p>
+      <div class="palco" style="gap:2.5rem">
+        <img class="sombra-suave" src="https://picsum.photos/id/1084/200/200" alt="Morsas na praia" width="200" height="200">
+        <img class="sombra-dura" src="https://picsum.photos/id/1035/200/200" alt="Cascata" width="200" height="200">
+        <img class="neon" src="https://picsum.photos/id/1036/200/200" alt="Paisagem com neve" width="200" height="200">
+      </div>
+<pre><span class="s">.sombra-suave</span> {
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgb(0 0 0 / .2);
+}
+<span class="s">.sombra-dura</span> {
+  box-shadow: 14px 14px 0 #26221e;
+}
+<span class="s">.neon</span> {
+  border-radius: 12px;
+  box-shadow: 0 0 10px #22d3ee,
+              0 0 30px #22d3ee,
+              0 0 60px #a855f7;
+}</pre>
+    </section>
+
+    <!-- 8 -->
+    <section class="exemplo" id="ex8">
+      <h2><span>8</span>Foto colada com fita-cola</h2>
+      <p class="descricao">O pseudo-elemento <code>::before</code> desenha a fita sem precisar de mais HTML. Precisa de um contentor, porque <code>&lt;img&gt;</code> não aceita <code>::before</code>.</p>
+      <div class="palco" style="background:#c8b89c">
+        <div class="fita">
+          <img src="https://picsum.photos/id/1040/300/220" alt="Castelo numa colina" width="300" height="220">
+        </div>
+      </div>
+<pre><span class="s">.fita</span> {
+  position: relative;
+  padding: 10px;
+  background: white;
+  transform: rotate(2deg);
+}
+<span class="s">.fita::before</span> {
+  content: "";
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  width: 110px;
+  height: 32px;
+  background: rgb(255 235 150 / .75);
+  transform: translateX(-50%) rotate(-4deg);
+}</pre>
+    </section>
+
+    <!-- 9 -->
+    <section class="exemplo largo" id="ex9">
+      <h2><span>9</span>Filtros</h2>
+      <p class="descricao">A propriedade <code>filter</code> aplica efeitos como num editor de imagem — e podem combinar-se vários.</p>
+      <div class="palco filtros">
+        <figure><img src="https://picsum.photos/id/1011/320/240" alt="Original" width="160" height="120"><figcaption>original</figcaption></figure>
+        <figure><img class="f-cinza" src="https://picsum.photos/id/1011/320/240" alt="Preto e branco" width="160" height="120"><figcaption>grayscale(100%)</figcaption></figure>
+        <figure><img class="f-sepia" src="https://picsum.photos/id/1011/320/240" alt="Sépia" width="160" height="120"><figcaption>sepia(90%)</figcaption></figure>
+        <figure><img class="f-desfoque" src="https://picsum.photos/id/1011/320/240" alt="Desfocada" width="160" height="120"><figcaption>blur(3px)</figcaption></figure>
+        <figure><img class="f-contraste" src="https://picsum.photos/id/1011/320/240" alt="Mais contraste" width="160" height="120"><figcaption>contrast + saturate</figcaption></figure>
+        <figure><img class="f-brilho" src="https://picsum.photos/id/1011/320/240" alt="Mais brilho" width="160" height="120"><figcaption>brightness(140%)</figcaption></figure>
+        <figure><img class="f-matiz" src="https://picsum.photos/id/1011/320/240" alt="Cores rodadas" width="160" height="120"><figcaption>hue-rotate(180deg)</figcaption></figure>
+        <figure><img class="f-inverter" src="https://picsum.photos/id/1011/320/240" alt="Cores invertidas" width="160" height="120"><figcaption>invert(100%)</figcaption></figure>
+        <figure><img class="f-vintage" src="https://picsum.photos/id/1011/320/240" alt="Efeito vintage" width="160" height="120"><figcaption>«vintage» (vários)</figcaption></figure>
+      </div>
+<pre><span class="s">.f-cinza</span>     { filter: grayscale(100%); }
+<span class="s">.f-sepia</span>     { filter: sepia(90%); }
+<span class="s">.f-desfoque</span>  { filter: blur(3px); }
+<span class="s">.f-contraste</span> { filter: contrast(160%) saturate(140%); }
+<span class="s">.f-brilho</span>    { filter: brightness(140%); }
+<span class="s">.f-matiz</span>     { filter: hue-rotate(180deg); }
+<span class="s">.f-inverter</span>  { filter: invert(100%); }
+<span class="c">/* Combinar filtros: separar por espaços */</span>
+<span class="s">.f-vintage</span>   { filter: sepia(50%) contrast(110%) brightness(95%) saturate(80%); }</pre>
+    </section>
+
+    <!-- 10 -->
+    <section class="exemplo largo" id="ex10">
+      <h2><span>10</span>Efeitos ao passar o rato</h2>
+      <p class="descricao">Combinação de <code>:hover</code> com <code>transition</code>. No zoom, o contentor tem <code>overflow: hidden</code> para a foto não sair da caixa.</p>
+      <div class="palco">
+        <div class="zoom"><img src="https://picsum.photos/id/1043/240/180" alt="Zoom" width="240" height="180"></div>
+        <img class="cor-ao-passar" src="https://picsum.photos/id/1044/240/180" alt="Preto e branco que ganha cor" width="240" height="180">
+        <img class="levantar" src="https://picsum.photos/id/1047/240/180" alt="Foto que se levanta" width="240" height="180">
+        <img class="rodar" src="https://picsum.photos/id/1048/240/180" alt="Foto que roda" width="240" height="180">
+      </div>
+<pre><span class="c">/* Zoom: a caixa fica igual, a foto cresce lá dentro */</span>
+<span class="s">.zoom</span>           { overflow: hidden; border-radius: 12px; }
+<span class="s">.zoom img</span>       { transition: transform .5s ease; }
+<span class="s">.zoom:hover img</span> { transform: scale(1.15); }
+
+<span class="c">/* Preto e branco → cor */</span>
+<span class="s">.cor-ao-passar</span>       { filter: grayscale(100%); transition: filter .4s ease; }
+<span class="s">.cor-ao-passar:hover</span> { filter: grayscale(0); }
+
+<span class="c">/* Levantar */</span>
+<span class="s">.levantar:hover</span> { transform: translateY(-10px); box-shadow: 0 20px 30px rgb(0 0 0 / .25); }
+
+<span class="c">/* Rodar */</span>
+<span class="s">.rodar:hover</span> { transform: rotate(-5deg) scale(1.05); }</pre>
+    </section>
+
+    <!-- 11 -->
+    <section class="exemplo" id="ex11">
+      <h2><span>11</span>Legenda sobreposta</h2>
+      <p class="descricao">Pai com <code>position: relative</code>, legenda com <code>position: absolute</code>, escondida fora da caixa e que sobe ao passar o rato.</p>
+      <div class="palco">
+        <figure class="sobreposta">
+          <img src="https://picsum.photos/id/1029/320/240" alt="Cidade à noite" width="320" height="240">
+          <figcaption><strong>Cidade à noite</strong>Passe o rato para ver a legenda</figcaption>
+        </figure>
+        <figure class="veu">
+          <img src="https://picsum.photos/id/1031/200/240" alt="Edifícios altos" width="200" height="240">
+        </figure>
+      </div>
+<pre><span class="s">.sobreposta</span> {
+  position: relative;
+  overflow: hidden;
+}
+<span class="s">.sobreposta figcaption</span> {
+  position: absolute;
+  inset: auto 0 0 0;    <span class="c">/* colada em baixo */</span>
+  color: white;
+  background: linear-gradient(
+      transparent, rgb(0 0 0 / .8));
+  transform: translateY(100%);
+  transition: transform .35s ease;
+}
+<span class="s">.sobreposta:hover figcaption</span> {
+  transform: translateY(0);
+}</pre>
+    </section>
+
+    <!-- 12 -->
+    <section class="exemplo largo" id="ex12">
+      <h2><span>12</span>Formas com clip-path</h2>
+      <p class="descricao"><code>clip-path</code> recorta a imagem com qualquer forma. Os pontos do <code>polygon()</code> são coordenadas X Y em percentagem. Gerador útil: <em>bennettfeely.com/clippy</em>.</p>
+      <div class="palco formas">
+        <img class="hexagono" src="https://picsum.photos/id/1001/400/400" alt="Hexágono" width="200" height="200">
+        <img class="losango" src="https://picsum.photos/id/1002/400/400" alt="Losango" width="200" height="200">
+        <img class="estrela" src="https://picsum.photos/id/1003/400/400" alt="Estrela" width="200" height="200">
+        <img class="diagonal" src="https://picsum.photos/id/1004/400/400" alt="Corte diagonal" width="200" height="200">
+        <img class="elipse" src="https://picsum.photos/id/1005/400/400" alt="Elipse" width="200" height="200">
+        <img class="gota" src="https://picsum.photos/id/1006/400/400" alt="Gota" width="200" height="200">
+      </div>
+<pre><span class="s">.hexagono</span> { clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%); }
+<span class="s">.losango</span>  { clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
+<span class="s">.estrela</span>  { clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%,
+                              50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%); }
+<span class="s">.diagonal</span> { clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%); }
+<span class="s">.elipse</span>   { clip-path: ellipse(45% 35% at 50% 50%); }
+<span class="c">/* Sem clip-path: 4 cantos diferentes no border-radius */</span>
+<span class="s">.gota</span>     { border-radius: 50% 0 50% 50%; }</pre>
+    </section>
+
+    <!-- 13 -->
+    <section class="exemplo largo" id="ex13">
+      <h2><span>13</span>object-fit: encaixar a foto numa caixa</h2>
+      <p class="descricao">A mesma foto panorâmica numa caixa quadrada de 200×200. <code>cover</code> é o mais usado em galerias e cartões.</p>
+      <div class="palco encaixe">
+        <figure><img class="of-fill" src="https://picsum.photos/id/1019/600/250" alt="fill" width="200" height="200"><figcaption>fill (deforma)</figcaption></figure>
+        <figure><img class="of-cover" src="https://picsum.photos/id/1019/600/250" alt="cover" width="200" height="200"><figcaption>cover (corta)</figcaption></figure>
+        <figure><img class="of-contain" src="https://picsum.photos/id/1019/600/250" alt="contain" width="200" height="200"><figcaption>contain (cabe inteira)</figcaption></figure>
+        <figure><img class="of-posicao" src="https://picsum.photos/id/1019/600/250" alt="cover à direita" width="200" height="200"><figcaption>cover + position: right</figcaption></figure>
+      </div>
+<pre><span class="s">.encaixe img</span> { width: 200px; height: 200px; }
+
+<span class="s">.of-fill</span>    { object-fit: fill; }      <span class="c">/* valor por omissão: estica */</span>
+<span class="s">.of-cover</span>   { object-fit: cover; }     <span class="c">/* preenche e corta o excesso */</span>
+<span class="s">.of-contain</span> { object-fit: contain; }   <span class="c">/* mostra tudo, sobra espaço */</span>
+<span class="s">.of-posicao</span> { object-fit: cover; object-position: right; }</pre>
+    </section>
+
+    <!-- 14 -->
+    <section class="exemplo" id="ex14">
+      <h2><span>14</span>Vinheta e duotone</h2>
+      <p class="descricao">Uma sombra interior (<code>inset</code>) num <code>::after</code> escurece os cantos. Com <code>mix-blend-mode</code> a foto mistura-se com cores, como num editor.</p>
+      <div class="palco">
+        <div class="vinheta"><img src="https://picsum.photos/id/1056/240/240" alt="Foto com vinheta" width="240" height="240"></div>
+        <div class="duotone"><img src="https://picsum.photos/id/1056/240/240" alt="Foto em duotone" width="240" height="240"></div>
+      </div>
+<pre><span class="s">.vinheta</span> { position: relative; overflow: hidden; }
+<span class="s">.vinheta::after</span> {
+  content: "";
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 80px 20px rgb(0 0 0 / .8);
+}
+
+<span class="s">.duotone</span> { position: relative; background: #1e3a8a; }
+<span class="s">.duotone img</span> {
+  filter: grayscale(100%) contrast(120%);
+  mix-blend-mode: screen;
+}
+<span class="s">.duotone::after</span> {
+  content: ""; position: absolute; inset: 0;
+  background: #f97316;
+  mix-blend-mode: multiply;
+}</pre>
+    </section>
+
+    <!-- 15 -->
+    <section class="exemplo" id="ex15">
+      <h2><span>15</span>Fotos empilhadas</h2>
+      <p class="descricao">Três fotos sobrepostas com <code>position: absolute</code>, rodadas com <code>:nth-child</code>. Ao passar o rato abrem-se em leque.</p>
+      <div class="palco">
+        <div class="pilha">
+          <img src="https://picsum.photos/id/1057/300/220" alt="Foto 1" width="300" height="220">
+          <img src="https://picsum.photos/id/1058/300/220" alt="Foto 2" width="300" height="220">
+          <img src="https://picsum.photos/id/1059/300/220" alt="Foto 3" width="300" height="220">
+        </div>
+      </div>
+<pre><span class="s">.pilha</span> { position: relative; width: 320px; height: 260px; }
+<span class="s">.pilha img</span> {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  border: 10px solid white;
+  transition: transform .4s ease;
+}
+<span class="s">.pilha img:nth-child(1)</span> { transform: rotate(-8deg); }
+<span class="s">.pilha img:nth-child(2)</span> { transform: rotate(5deg); }
+
+<span class="s">.pilha:hover img:nth-child(1)</span> {
+  transform: rotate(-15deg) translateX(-90px);
+}
+<span class="s">.pilha:hover img:nth-child(2)</span> {
+  transform: rotate(12deg) translateX(90px);
+}</pre>
+    </section>
+
+    <!-- 16 -->
+    <section class="exemplo largo" id="ex16">
+      <h2><span>16</span>Tira de filme</h2>
+      <p class="descricao">Os furos são desenhados só com <code>repeating-linear-gradient</code> no fundo do contentor — sem imagens extra.</p>
+      <div class="palco">
+        <div class="filme">
+          <img src="https://picsum.photos/id/1060/340/240" alt="Fotograma 1" width="170" height="120">
+          <img src="https://picsum.photos/id/1061/340/240" alt="Fotograma 2" width="170" height="120">
+          <img src="https://picsum.photos/id/1063/340/240" alt="Fotograma 3" width="170" height="120">
+          <img src="https://picsum.photos/id/1064/340/240" alt="Fotograma 4" width="170" height="120">
+          <img src="https://picsum.photos/id/1065/340/240" alt="Fotograma 5" width="170" height="120">
+        </div>
+      </div>
+<pre><span class="s">.filme</span> {
+  display: flex;
+  gap: 12px;
+  padding: 28px 14px;
+  background-color: #111;
+  <span class="c">/* duas filas de furos: 14px de cor clara, 16px de intervalo */</span>
+  background-image:
+    repeating-linear-gradient(90deg, #f4f1ec 0 14px, transparent 14px 30px),
+    repeating-linear-gradient(90deg, #f4f1ec 0 14px, transparent 14px 30px);
+  background-size: 100% 10px, 100% 10px;
+  background-position: 0 9px, 0 calc(100% - 9px);
+  background-repeat: no-repeat;
+}
+<span class="s">.filme img</span> { width: 170px; height: 120px; object-fit: cover; filter: sepia(30%); }</pre>
+    </section>
+
+    <!-- 17 -->
+    <section class="exemplo largo" id="ex17">
+      <h2><span>17</span>Galeria em grelha (CSS Grid)</h2>
+      <p class="descricao">Colunas automáticas com <code>auto-fill</code> + <code>minmax()</code>, e algumas fotos maiores com <code>span</code>. Redimensione a janela!</p>
+      <div class="palco">
+        <div class="galeria">
+          <img class="grande" src="https://picsum.photos/id/1067/600/600" alt="Cidade" width="600" height="600">
+          <img src="https://picsum.photos/id/1068/300/300" alt="Foto da galeria" width="300" height="300">
+          <img class="alta" src="https://picsum.photos/id/1069/300/600" alt="Foto da galeria" width="300" height="600">
+          <img src="https://picsum.photos/id/1070/300/300" alt="Foto da galeria" width="300" height="300">
+          <img class="larga" src="https://picsum.photos/id/1071/600/300" alt="Foto da galeria" width="600" height="300">
+          <img src="https://picsum.photos/id/1072/300/300" alt="Foto da galeria" width="300" height="300">
+          <img src="https://picsum.photos/id/1073/300/300" alt="Foto da galeria" width="300" height="300">
+          <img class="larga" src="https://picsum.photos/id/1075/600/300" alt="Foto da galeria" width="600" height="300">
+        </div>
+      </div>
+<pre><span class="s">.galeria</span> {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  grid-auto-rows: 160px;
+  gap: 10px;
+}
+<span class="s">.galeria img</span> { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; }
+
+<span class="s">.galeria .grande</span> { grid-column: span 2; grid-row: span 2; }
+<span class="s">.galeria .alta</span>   { grid-row: span 2; }
+<span class="s">.galeria .larga</span>  { grid-column: span 2; }</pre>
+    </section>
+
+    <!-- 18 -->
+    <section class="exemplo" id="ex18">
+      <h2><span>18</span>Texto a contornar a foto</h2>
+      <p class="descricao"><code>float</code> põe a foto ao lado do texto e <code>shape-outside</code> faz o texto seguir a forma redonda.</p>
+      <div class="contornar">
+        <img src="https://picsum.photos/id/1027/400/400" alt="Retrato" width="200" height="200">
+        <p>A fotografia está alinhada à esquerda com <code>float</code>. Graças ao <code>shape-outside: circle(50%)</code>, as linhas de texto não ficam alinhadas a direito: acompanham a curva da imagem, como numa revista. Esta técnica funciona com círculos, elipses, polígonos e até com a transparência de uma imagem PNG. Escreva mais texto aqui para ver o efeito com clareza, ou reduza a largura da janela do browser e repare como as linhas se adaptam à forma da fotografia.</p>
+      </div>
+<pre><span class="s">.contornar img</span> {
+  float: left;
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  margin: 0 1.5rem 1rem 0;
+  border-radius: 50%;
+  shape-outside: circle(50%);
+}</pre>
+    </section>
+
+    <!-- 19 -->
+    <section class="exemplo" id="ex19">
+      <h2><span>19</span>Proporção fixa (aspect-ratio)</h2>
+      <p class="descricao">Garante que todas as fotos têm a mesma proporção, seja qual for o tamanho original.</p>
+      <div class="palco proporcoes">
+        <figure><img class="r-quadrado" src="https://picsum.photos/id/1076/500/350" alt="1:1" width="200" height="200"><figcaption>1 / 1</figcaption></figure>
+        <figure><img class="r-video" src="https://picsum.photos/id/1076/500/350" alt="16:9" width="200" height="113"><figcaption>16 / 9</figcaption></figure>
+        <figure><img class="r-retrato" src="https://picsum.photos/id/1076/500/350" alt="3:4" width="200" height="267"><figcaption>3 / 4</figcaption></figure>
+      </div>
+<pre><span class="s">.proporcoes img</span> {
+  width: 100%;
+  object-fit: cover;
+}
+<span class="s">.r-quadrado</span> { aspect-ratio: 1 / 1; }
+<span class="s">.r-video</span>    { aspect-ratio: 16 / 9; }
+<span class="s">.r-retrato</span>  { aspect-ratio: 3 / 4; }</pre>
+    </section>
+
+  </main>
+
+  <footer>
+    Formação de HTML e CSS · Fotografias de exemplo: Lorem Picsum (picsum.photos)
+  </footer>
+
+</body>
+</html>

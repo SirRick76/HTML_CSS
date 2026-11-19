@@ -7,11 +7,41 @@
     <title>Tabelas em HTML</title>
     <link rel="stylesheet" href="CSS/estilos.css">
 
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: aliceblue;
+            margin: 30px;
+        }
+
+        h1{
+            color:darkblue;
+            font-size: 24px;
+        }
+        table{
+            width: 100%;
+            background-color: white;
+            margin-bottom: 10px;
+        }
+        th{
+            color: darkblue;
+            padding: 10px;
+            border:1px solid grey;
+        }
+        td{
+            padding: 10px;
+            border:1px solid grey;
+        }
+        tr:hover{
+            background-color: cornflowerblue;
+        }
+    </style>
+
 </head>
 
 <body>
     <h1>Tabelas</h1>
-    <table border="1">
+    <table>
         <tr>
             <th>Produto</th>
             <th>Preço</th>
@@ -27,7 +57,7 @@
     </table>
     <br>
     <!-- table>tr*3>td*2>Lorem1-->
-    <table border="2">
+    <table >
         <tr>
             <td>Lorem.</td>
             <td>Culpa!</td>
@@ -44,7 +74,7 @@
 
     <h1>Fundir células</h1>
 
-    <table border ="1">
+    <table >
         <tr>
             <td rowspan="2" valign="middle">Célula 1</td>
             <td colspan="2" align="center">Célula 2</td>
@@ -62,7 +92,7 @@
     </table>
 
     <h1>Tabela Nova</h1>
-    <table border="1">
+    <table >
         <tr>
             <td colspan="4">Lorem.</td>
         </tr>

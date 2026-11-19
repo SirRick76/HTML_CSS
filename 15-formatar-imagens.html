@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formatar Imagens</title>
+    <style>
+        .proporcoes {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .proporcoes figure {
+            margin: 0;
+            width: 200px;
+            text-align: center;
+            font-size: .85rem;
+        }
+
+        .proporcoes img {
+            width: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .r-quadrado {
+            aspect-ratio: 1 / 1;
+        }
+
+        .r-video {
+            aspect-ratio: 16 / 9;
+        }
+
+        .r-retrato {
+            aspect-ratio: 3 / 4;
+        }
+
+        /* Respeitar quem prefere menos movimento */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                transition: none !important;
+            }
+        }
+
+        .filme {
+            display: flex;
+            gap: 12px;
+            padding: 28px 14px;
+            background-color: #111;
+            /* duas filas de furos: 14px de cor clara, 16px de intervalo */
+            background-image:
+                repeating-linear-gradient(90deg, #f4f1ec 0 14px, transparent 14px 30px),
+                repeating-linear-gradient(90deg, #f4f1ec 0 14px, transparent 14px 30px);
+            background-size: 100% 10px, 100% 10px;
+            background-position: 0 9px, 0 calc(100% - 9px);
+            background-repeat: no-repeat;
+        }
+
+        .filme img {
+            width: 170px;
+            height: 120px;
+            object-fit: cover;
+            filter: sepia(30%);
+        }
+
+        .pilha {
+            position: relative;
+            width: 320px;
+            height: 260px;
+        }
+
+        .pilha img {
+            position: absolute;
+            inset: 0;
+            margin: auto;
+            border: 10px solid white;
+            transition: transform .4s ease;
+        }
+
+        .pilha img:nth-child(1) {
+            transform: rotate(-8deg);
+        }
+
+        .pilha img:nth-child(2) {
+            transform: rotate(5deg);
+        }
+
+        .pilha:hover img:nth-child(1) {
+            transform: rotate(-30deg) translateX(-90px);
+        }
+
+        .pilha:hover img:nth-child(2) {
+            transform: rotate(12deg) translateX(90px);
+        }
+    </style>
+    </style>
+</head>
+
+<body>
+    <section class="exemplo" id="ex19">
+        <h2><span>19-</span>Proporção fixa (aspect-ratio)</h2>
+        <div class="palco proporcoes">
+            <figure><img class="r-quadrado" src="imagens/bg.jpg" alt="1:1" width="200" height="200">
+                <figcaption>1 / 1</figcaption>
+            </figure>
+            <figure><img class="r-video" src="imagens/bg.jpg" alt="16:9" width="200" height="113">
+                <figcaption>16 / 9</figcaption>
+            </figure>
+            <figure><img class="r-retrato" src="imagens/bg.jpg" alt="3:4" width="200" height="267">
+                <figcaption>3 / 4</figcaption>
+            </figure>
+            <section class="exemplo largo" id="ex16">
+                <h2><span>16</span>Tira de filme</h2>
+                <div class="palco">
+                    <div class="filme">
+                        <img src="imagens/walk.gif" alt="Fotograma 1" width="170" height="120">
+                        <img src="imagens/walk.gif" alt="Fotograma 2" width="170" height="120">
+                        <img src="imagens/walk.gif" alt="Fotograma 3" width="170" height="120">
+                        <img src="imagens/walk.gif" alt="Fotograma 4" width="170" height="120">
+                        <img src="imagens/walk.gif" alt="Fotograma 5" width="170" height="120">
+                    </div>
+                </div>
+</section>
+
+    <!-- 15 -->
+    <section class="exemplo" id="ex15">
+      <h2><span>15</span>Fotos empilhadas</h2>
+      <p class="descricao">Três fotos sobrepostas com <code>position: absolute</code>, rodadas com <code>:nth-child</code>. Ao passar o rato abrem-se em leque.</p>
+      <div class="palco">
+        <div class="pilha">
+          <img src="https://chuckjones.com/wp-content/uploads/Daffy-Duck-Sketch-01-1.jpg" alt="Foto 1" width="300" height="220">
+          <img src="https://chuckjones.com/wp-content/uploads/Daffy-Duck-Sketch-02-1.jpg" alt="Foto 2" width="300" height="220">
+          <img src="https://chuckjones.com/wp-content/uploads/Daffy-Duck-Sketch-04-1.jpg" alt="Foto 3" width="300" height="220">
+        </div>
+      </div>
+
+</body>
+
+</html>
