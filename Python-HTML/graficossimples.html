@@ -43,12 +43,61 @@
             height: auto;
             margin: 15px;
         }
+        .linha{
+            display: flex;
+            align-items: center;
+            margin:10px;
+
+        }
+        .nome{
+            width: 75px;
+        }
+        .fundo{ 
+            flex:1;
+            background-color: gainsboro;
+            height: 24px;
+
+        }
+        .barra,.barra_idade{
+            background-color: darkslategray;
+            height: 24px;
+
+        }
+
+        .valor{
+            width: 35px;
+            text-align: right;
+
+
+        }
+        .cabecalho{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .botao{
+            background-color: darkslategrey;
+            color:whitesmoke;
+            padding: 10px;
+            text-decoration: none;
+            border-radius: 20px;
+        }
+        .botao:hover{
+            background-color: rgb(73, 117, 117);
+        }
 
     </style>
 
 </head>
 <body>
-    <h1>Lista de alunos</h1>
+    <div class="cabecalho">
+        <div>
+            <h1>Lista de alunos</h1>
+        </div>
+        <div>
+            <a href="index.html" class="botao">Voltar</a>
+        </div>
+    </div>
     <table border="1">
         <thead>
             <tr>
@@ -59,18 +108,140 @@
             </tr>
         </thead>
         <tbody>
-            <!-- INICIO --><tr><td>Ana</td><td>16</td><td>Informática</td><td>17</td></tr><tr><td>Bruno</td><td>17</td><td>Informática</td><td>14</td></tr><tr><td>Carla</td><td>16</td><td>Multimédia</td><td>18</td></tr><tr><td>Diogo</td><td>17</td><td>Informática</td><td>12</td></tr><tr><td>Eva</td><td>16</td><td>Multimédia</td><td>19</td></tr><tr><td>Rui</td><td>14</td><td>Multimédia</td><td>19</td></tr><tr><td>Luis</td><td>16</td><td>Multimédia</td><td>18</td></tr><tr><td>Carlos</td><td>16</td><td>Multimédia</td><td>19</td></tr><tr><td>Silva</td><td>17</td><td>Informática</td><td>12</td></tr><tr><td>Diogo</td><td>14</td><td>Multimédia</td><td>19</td></tr><!-- FIM -->
+            <!-- INICIO_TABELA -->
+<tr><td>Ana</td><td>16</td><td>Informática</td><td>17</td></tr><tr><td>Bruno</td><td>17</td><td>Informática</td><td>14</td></tr><tr><td>Carla</td><td>16</td><td>Multimédia</td><td>18</td></tr><tr><td>Diogo</td><td>17</td><td>Informática</td><td>12</td></tr><tr><td>Eva</td><td>16</td><td>Multimédia</td><td>19</td></tr><tr><td>Rui</td><td>14</td><td>Multimédia</td><td>19</td></tr><tr><td>Luis</td><td>16</td><td>Multimédia</td><td>18</td></tr><tr><td>Carlos</td><td>16</td><td>Multimédia</td><td>19</td></tr><tr><td>Silva</td><td>17</td><td>Informática</td><td>12</td></tr><tr><td>Diogo</td><td>14</td><td>Multimédia</td><td>19</td></tr><!-- FIM_TABELA -->
 
         </tbody>
     </table>
     <h2>Gráfico das notas dos alunos</h2>
     <!-- INICIO_NOTAS -->
 
-    <!-- FIM_NOTAS -->
+        <div class="linha">
+            <span class="nome">Ana</span>
+            <div class="fundo">
+                <div class="barra" style="width:85%"></div>
+            </div>
+            <span class="valor">17</span>
+        </div>
+
+        
+        <div class="linha">
+            <span class="nome">Bruno</span>
+            <div class="fundo">
+                <div class="barra" style="width:70%"></div>
+            </div>
+            <span class="valor">14</span>
+        </div>
+
+        
+        <div class="linha">
+            <span class="nome">Carla</span>
+            <div class="fundo">
+                <div class="barra" style="width:90%"></div>
+            </div>
+            <span class="valor">18</span>
+        </div>
+
+        
+        <div class="linha">
+            <span class="nome">Diogo</span>
+            <div class="fundo">
+                <div class="barra" style="width:60%"></div>
+            </div>
+            <span class="valor">12</span>
+        </div>
+
+        
+        <div class="linha">
+            <span class="nome">Eva</span>
+            <div class="fundo">
+                <div class="barra" style="width:95%"></div>
+            </div>
+            <span class="valor">19</span>
+        </div>
+
+        
+        <div class="linha">
+            <span class="nome">Rui</span>
+            <div class="fundo">
+                <div class="barra" style="width:95%"></div>
+            </div>
+            <span class="valor">19</span>
+        </div>
+
+        
+        <div class="linha">
+            <span class="nome">Luis</span>
+            <div class="fundo">
+                <div class="barra" style="width:90%"></div>
+            </div>
+            <span class="valor">18</span>
+        </div>
+
+        
+        <div class="linha">
+            <span class="nome">Carlos</span>
+            <div class="fundo">
+                <div class="barra" style="width:95%"></div>
+            </div>
+            <span class="valor">19</span>
+        </div>
+
+        
+        <div class="linha">
+            <span class="nome">Silva</span>
+            <div class="fundo">
+                <div class="barra" style="width:60%"></div>
+            </div>
+            <span class="valor">12</span>
+        </div>
+
+        
+        <div class="linha">
+            <span class="nome">Diogo</span>
+            <div class="fundo">
+                <div class="barra" style="width:95%"></div>
+            </div>
+            <span class="valor">19</span>
+        </div>
+
+        <!-- FIM_NOTAS -->
 
     <h2>Gráfico das idades dos alunos</h2>
     <!-- INICIO_IDADES -->
 
-    <!-- FIM_IDADES -->
+            <div class="linha">
+                <span class="nome">14</span>
+                <div class="fundo">
+                    <div class="barra_idade" style="width:20.0%"></div>
+                </div>
+                <span class="valor">2</span>
+            </div>
+
+
+
+            
+            <div class="linha">
+                <span class="nome">16</span>
+                <div class="fundo">
+                    <div class="barra_idade" style="width:50.0%"></div>
+                </div>
+                <span class="valor">5</span>
+            </div>
+
+
+
+            
+            <div class="linha">
+                <span class="nome">17</span>
+                <div class="fundo">
+                    <div class="barra_idade" style="width:30.0%"></div>
+                </div>
+                <span class="valor">3</span>
+            </div>
+
+
+
+            <!-- FIM_IDADES -->
 </body>
 </html>

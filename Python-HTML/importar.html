@@ -4,9 +4,69 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dados importados de um ficheiro CSV</title>
+
+    <style>
+        body{
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: whitesmoke;
+            color: darkslategray;
+            margin: 30px
+        }
+        main{
+            max-width: 850px;
+            margin: auto;
+            background-color: white;
+            padding: 25px;
+            border: 1px solid gainsboro;
+            border-radius: 8px;
+
+        }
+        h1,h2{
+            color: darkslategray;
+        }
+        table{
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th,td{
+            border: 1px solid gainsboro;
+            padding: 10px;
+            text-align: left;
+        }
+        td{
+            background-color: white;
+        }
+
+        .cabecalho{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .botao{
+            background-color: darkslategrey;
+            color:whitesmoke;
+            padding: 10px;
+            text-decoration: none;
+            border-radius: 20px;
+        }
+        .botao:hover{
+            background-color: rgb(73, 117, 117);
+        }
+        
+    </style>
 </head>
 <body>
-    <h1>Lista de alunos</h1>
+
+    <div class="cabecalho">
+        <div>
+            <h1>Lista de alunos</h1>
+        </div>
+        <div>
+            <a href="index.html" class="botao">Voltar</a>
+        </div>
+    </div>
+
+    
     <table border="1">
         <thead>
             <tr>

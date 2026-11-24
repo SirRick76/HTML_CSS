@@ -42,6 +42,21 @@
             height: auto;
             margin: 15px;
         }
+        .cabecalho{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .botao{
+            background-color: darkslategrey;
+            color:whitesmoke;
+            padding: 10px;
+            text-decoration: none;
+            border-radius: 20px;
+        }
+        .botao:hover{
+            background-color: rgb(73, 117, 117);
+        }
 
     </style>
 
@@ -49,7 +64,14 @@
 
 </head>
 <body>
-    <h1>Lista de alunos</h1>
+    <div class="cabecalho">
+        <div>
+            <h1>Lista de alunos</h1>
+        </div>
+        <div>
+            <a href="index.html" class="botao">Voltar</a>
+        </div>
+    </div>
     <table border="1">
         <thead>
             <tr>
